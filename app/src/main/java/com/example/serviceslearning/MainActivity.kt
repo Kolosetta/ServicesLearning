@@ -21,13 +21,23 @@ class MainActivity : AppCompatActivity() {
             startService(MyService.newIntent(this, 10))
         }
 
-        binding.foregroundBtn.setOnClickListener{
+        binding.notificationBtn.setOnClickListener{
             showNotification()
+        }
+
+        binding.foregroundBtn.setOnClickListener{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(MyForegroundService.newIntent(this))
+            }
+            else
+            {
+                startService(MyService.newIntent(this, 0))
+            }
+
         }
     }
 
     private fun showNotification(){
-
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         //Проверка. Если текущая версия больше чем 8, то создаем channel.
@@ -48,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             .setContentText("Text")
             .setSmallIcon(R.drawable.ic_launcher_background)
             .build()
-        
+
         notificationManager.notify(1, notification)
     }
 

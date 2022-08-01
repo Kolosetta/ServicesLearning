@@ -8,6 +8,8 @@ import android.os.IBinder
 import android.util.Log
 import kotlinx.coroutines.*
 
+//Данный сервис будет работать тольо на АПИ до 27
+//После необходимо работать с Foreground Service
 class MyService : Service() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
