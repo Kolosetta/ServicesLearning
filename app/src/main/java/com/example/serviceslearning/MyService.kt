@@ -12,7 +12,6 @@ class MyService : Service() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-
     override fun onCreate() {
         Log.i("Service_Log", "OnCreate")
         super.onCreate()
