@@ -47,7 +47,6 @@ class MyService : Service() {
     }
 
     companion object{
-
         private const val EXTRA_START = "start"
 
         fun newIntent(context: Context, startFrom: Int): Intent{

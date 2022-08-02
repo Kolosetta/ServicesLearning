@@ -1,11 +1,14 @@
 package com.example.serviceslearning
 
+import android.app.IntentService
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.startForegroundService
 import com.example.serviceslearning.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +36,12 @@ class MainActivity : AppCompatActivity() {
             {
                 startService(MyService.newIntent(this, 0))
             }
+        }
 
+        binding.intentServiceBtn.setOnClickListener{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(MyIntentService.newIntent(this))
+            }
         }
     }
 
