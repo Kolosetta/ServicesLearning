@@ -1,9 +1,10 @@
 package com.example.serviceslearning
 
-import android.app.IntentService
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -42,6 +43,18 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(MyIntentService.newIntent(this))
             }
+        }
+
+        binding.jobSchedulerBtn.setOnClickListener{
+            val componentName = ComponentName(this, MyJobService::class.java)
+            //Установка ограничений работы сервиса
+            val jobInfo = JobInfo.Builder(MyJobService.JOB_ID, componentName)
+                .setRequiresCharging(true)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                .build()
+            //Запуск сервиса
+            val jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+            jobScheduler.schedule(jobInfo)
         }
     }
 

@@ -41,4 +41,8 @@ class MyJobService : JobService() {
         Log.i("Service_tag", "onStopJob")
         return false
     }
+
+    companion object{
+        const val JOB_ID = 1111
+    }
 }
