@@ -38,7 +38,7 @@ class MyJobService : JobService() {
     //Не вызывается после естественного окончания работы сервиса
     //Возвращаемый тип, должен ли сервис быть запланирован заново на выполнение
     override fun onStopJob(p0: JobParameters?): Boolean {
-        Log.i("Service_tag", "onStopJob")
+        Log.i("Service_Log", "onStopJob")
         return false
     }
 

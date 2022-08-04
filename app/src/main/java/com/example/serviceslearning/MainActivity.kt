@@ -9,8 +9,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.startForegroundService
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
 import com.example.serviceslearning.databinding.ActivityMainBinding
+import com.example.serviceslearning.work_manager.MyWorker
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,6 +57,15 @@ class MainActivity : AppCompatActivity() {
             //Запуск сервиса
             val jobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
             jobScheduler.schedule(jobInfo)
+        }
+
+        binding.workManagerBtn.setOnClickListener{
+            val workManager = WorkManager.getInstance(applicationContext)
+            workManager.enqueueUniqueWork(
+                MyWorker.WORK_NAME,
+                ExistingWorkPolicy.APPEND,
+                MyWorker.makeRequest(21)
+            )
         }
     }
 
